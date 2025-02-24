@@ -37,6 +37,9 @@
     gh
     evtest
     hid-tools
+    rpi-imager
+    tigervnc
+    stm32cubemx
   ];
 
   home.file = {

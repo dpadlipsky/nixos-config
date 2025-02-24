@@ -58,7 +58,7 @@
   users.users.dpadlipsky = {
     isNormalUser = true;
     description = "David Padlipsky";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" ];
   };
 
   # Allow unfree packages
