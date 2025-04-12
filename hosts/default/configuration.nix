@@ -28,6 +28,7 @@
   networking.hostName = "dpadlipsky";
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
+  # networking.firewall.allowedTCPPorts = [ 5173 ];
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -58,10 +59,9 @@
   users.users.dpadlipsky = {
     isNormalUser = true;
     description = "David Padlipsky";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" "docker" ];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -76,6 +76,8 @@
     stdenv
     nix-index
   ];
+
+  virtualisation.docker.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -92,6 +94,35 @@
     };
   };
 
-  # Needed for swaylock
   security.pam.services.swaylock = {};
+
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "dpadlipsky" ];
+  };
+  programs.hyprland.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+    polkit-1.u2fAuth = true;
+    sddm.enableKwallet = true;
+  };
+
+  security.pam.services.kwallet = {
+    enableKwallet = true;
+  };
+
+  programs = {
+      gnupg.agent = {
+        enable = true;
+        enableSSHSupport = false;
+        settings = {
+          default-cache-ttl = 2592000;
+        max-cache-ttl = 2592000;
+      };
+    };
+  };
 }

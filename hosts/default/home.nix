@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.home-manager.enable = true;
@@ -20,6 +20,13 @@
   # release notes.
   home.stateVersion = "23.11";
 
+  xdg.mimeApps.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "chromium.desktop";
+    "x-scheme-handler/http" = "chromium.desktop";
+    "x-scheme-handler/https" = "chromium.desktop";
+  };
+
   home.packages = with pkgs; [
     vscode
     discord
@@ -40,6 +47,12 @@
     rpi-imager
     tigervnc
     stm32cubemx
+    hyprpolkitagent
+    code-cursor
+    libsForQt5.kwallet
+    libsForQt5.kwalletmanager
+    gnupg
+    pinentry-all
   ];
 
   home.file = {

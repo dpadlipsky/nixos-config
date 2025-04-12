@@ -25,13 +25,18 @@ in
     wayland.windowManager.hyprland.settings = {
       # TODO: Define monitors dynamically based on host
       monitor = [
-        "DP-1,highrr,auto,1.3333"
-        "HDMI-A-1,preferred,auto,2"
         "eDP-1,preferred,auto,2"
+        "DP-1,preferred,-1920x0,2"
+        "HDMI-A-1,preferred,0x0,2"
+        "DP-2,highrr,auto,1.3333"
         ",preferred,auto,auto"
       ];
 
-      exec-once = "hyprpaper & waybar";
+      exec-once = [
+        "hyprpaper"
+        "waybar"
+        "systemctl --user start hyprpolkitagent"
+      ];
 
       # Some default env vars.
       env = [
@@ -67,10 +72,12 @@ in
           passes = 1;
         };
 
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        shadow = {
+          enabled = true;
+          color = "rgba(1a1a1aee)";
+          range = 4;
+          render_power = 3;
+        };
       };
 
       animations = {
@@ -93,14 +100,25 @@ in
       };
 
       master = {
-          new_is_master = true;
+        new_status = "master";
       };
 
       misc = {
         force_default_wallpaper = 0;
         disable_splash_rendering = true;
-        no_direct_scanout = false;
+        vfr = 0;
       };
+
+      debug = {
+        damage_tracking = 0;
+      };
+
+      render = {
+        explicit_sync = 2;
+        explicit_sync_kms = 0;
+      };
+
+      opengl = { nvidia_anti_flicker = 0; force_introspection = 2; };
 
       "$mainMod" = "SUPER";
 
@@ -115,7 +133,6 @@ in
         "$mainMod CTRL, F, fullscreen, 0"
         # TODO: Once 0.36.0 comes out change this to 2 and remove Meta + Ctrl + F shortcut
         "$mainMod, F, fullscreen, 1"
-        "$mainMod SHIFT, F, fakefullscreen, 1"
         "$mainMode, L, exec, swaylock"
         "$mainMode SHIFT, L, exec, hyprctl dispatch exit"
 
@@ -167,7 +184,7 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
 
-	"$mainMod, M, exec, amixer set Capture toggle" 
+        "$mainMod, M, exec, amixer set Capture toggle"
       ];
 
       bindr = [

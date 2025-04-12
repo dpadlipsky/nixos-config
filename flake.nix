@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,10 +16,10 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-    
+
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
-          modules = [ 
+          modules = [
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
           ];
@@ -27,7 +27,7 @@
 
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
-          modules = [ 
+          modules = [
             ./hosts/laptop/configuration.nix
             inputs.home-manager.nixosModules.default
           ];
