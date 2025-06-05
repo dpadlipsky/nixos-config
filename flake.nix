@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -32,5 +32,14 @@
             inputs.home-manager.nixosModules.default
           ];
         };
+
+      nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [
+            ./hosts/framework/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+
     };
 }

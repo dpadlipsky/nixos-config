@@ -8,8 +8,10 @@ in
   options.dpad.rofi.enable = mkEnableOption (lib.mdDoc "Enable rofi");
 
   config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.rofi-wayland
-    ];
+    programs.rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+      theme = "gruvbox-dark-hard";
+    };
   };
 }

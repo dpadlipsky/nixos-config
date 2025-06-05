@@ -118,7 +118,7 @@ in
         explicit_sync_kms = 0;
       };
 
-      opengl = { nvidia_anti_flicker = 0; force_introspection = 2; };
+#      opengl = { nvidia_anti_flicker = 0; force_introspection = 2; };
 
       "$mainMod" = "SUPER";
 
