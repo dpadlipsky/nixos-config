@@ -23,13 +23,13 @@
     timeoutStyle = "countdown";
     gfxmodeEfi = "1024x768";
   };
-  boot.kernelParams = ["quiet" "splash" "loglevel=0" "acpi_rev_override"];
+  boot.kernelParams = ["quiet" "splash" "loglevel=0" "acpi_rev_override" "amdgpu.dcdebugmask=0x10"];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-de8965c6-4cae-4f0d-a96c-dd55aba6c708".device = "/dev/disk/by-uuid/de8965c6-4cae-4f0d-a96c-dd55aba6c708";
 
+  services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
-
   networking.hostName = "dpadlipsky";
 
   networking.networkmanager.enable = true;
@@ -38,10 +38,8 @@
 
   networking.firewall.enable = true;
 
-  # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -56,12 +54,10 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
   services.xserver = {
     enable = true;
     xkb.layout = "us";
     xkb.variant = "";
-    # Needed to fix login screen scaling
     dpi = 192;
     displayManager.sddm.enable = true;
     displayManager.sddm.enableHidpi = true;
@@ -76,15 +72,14 @@
   users.users.dpadlipsky = {
     isNormalUser = true;
     description = "David Padlipsky";
-    extraGroups = [ "networkmanager" "wheel"  "video" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" "docker" "video" ];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.nvidia.acceptLicense = true;
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     killall
     git
@@ -100,6 +95,10 @@
 
   programs.light.enable = true;
   programs.steam.enable = true;
+  virtualisation.docker.enable = true;
+
+  services.fwupd.enable = true;
+  services.fprintd.enable = true;
 
   programs._1password.enable = true;
   programs._1password-gui = {
@@ -114,7 +113,6 @@
     polkit-1.u2fAuth = true;
     sddm.enableKwallet = true;
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
