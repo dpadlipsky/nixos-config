@@ -9,6 +9,7 @@
       ../../modules/nixos/hyprland.nix
       ../../modules/nixos/audio.nix
       ../../modules/nixos/fonts.nix
+      ../../modules/nixos/kanata.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -72,7 +73,7 @@
   users.users.dpadlipsky = {
     isNormalUser = true;
     description = "David Padlipsky";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" "docker" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" "docker" "video" "uinput" ];
   };
 
   nixpkgs.config.allowUnfree = true;
