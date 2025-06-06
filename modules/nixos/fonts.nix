@@ -5,5 +5,7 @@
   fonts.packages = with pkgs; [
     font-awesome
     liberation_ttf
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
   ];
 }

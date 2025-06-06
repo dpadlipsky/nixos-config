@@ -92,6 +92,7 @@
     nix-index
     acpi
     lshw
+    pavucontrol
   ];
 
   programs.light.enable = true;

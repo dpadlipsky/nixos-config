@@ -19,18 +19,28 @@ in
 
         "modules-left": ["hyprland/workspaces"],
         "modules-center": ["clock"],
-        "modules-right": ["pulseaudio"],
+        "modules-right": ["battery", "pulseaudio"],
         "clock": {
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
             "format": "{:%a, %d %b, %I:%M %p}"
         },
+        "battery": {
+            "interval": 15,
+            "states": {
+                "warning": 30,
+                "critical": 15
+            },
+            "format": "{icon}  {capacity}%",
+            "format-charging": "󱐋 {capacity}%",
+            "format-plugged": "󱐋 {capacity}%",
+            "format-icons": ["", "", "", "", ""],
+            "tooltip-format": "Battery: {capacity}% ({time})"
+        },
         "pulseaudio": {
-            "format": "{volume}% {icon} {format_source}",
-            "format-bluetooth": "{volume}% {icon} {format_source}",
-            "format-bluetooth-muted": " {icon} {format_source}",
-            "format-muted": "0% {icon} ",
-            "format-source": "{volume}% ",
-            "format-source-muted": "",
+            "format": "{icon}  {volume}%  {format_source}",
+            "format-muted": "{icon} 0%",
+            "format-source": " {volume}%",
+            "format-source-muted": " {volume}%",
             "format-icons": {
                 "headphone": "",
                 "hands-free": "",
@@ -51,7 +61,7 @@ in
     * {
         border: none;
         border-radius: 0;
-        font-family: Liberation Mono;
+        font-family: "JetBrainsMono Nerd Font", "Liberation Mono", monospace;
         min-height: 20px;
     }
 
@@ -101,9 +111,19 @@ in
         background: rgba(56, 60, 74, .3);
     }
 
+    #battery {
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-right: 8px;
+        border-radius: 10px;
+        transition: none;
+        color: #ffffff;
+        background: rgba(56, 60, 74, .3);
+    }
+
     #pulseaudio {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 8px;
+        padding-right: 8px;
         border-radius: 10px;
         transition: none;
         color: #ffffff;

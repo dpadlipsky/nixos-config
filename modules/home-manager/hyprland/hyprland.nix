@@ -38,13 +38,11 @@ in
         "systemctl --user start hyprpolkitagent"
       ];
 
-      # Some default env vars.
       env = [
         "XCURSOR_SIZE,24"
         "WLR_NO_HARDWARE_CURSORS,1"
       ];
 
-      # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input = {
           kb_layout = "us";
           follow_mouse = true;
@@ -52,6 +50,8 @@ in
             natural_scroll = false;
           };
           sensitivity = cfg.sensitivity;
+          repeat_rate = 40;
+          repeat_delay = 300;
       };
 
       general = {
