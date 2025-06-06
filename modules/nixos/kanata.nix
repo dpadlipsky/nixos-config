@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+with lib;
 
 let
+  cfg = config.dpad.kanata;
+
   kanataConfig = ''
     (defsrc
         caps lmet lalt)
@@ -12,21 +15,29 @@ let
   '';
 in
 {
-  services.kanata = {
-    enable = true;
-    keyboards = {
-      internalKeyboard = {
-        devices = [
-          "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-        ];
-        config = kanataConfig;
-      };
+  options.dpad.kanata = {
+    internalKeyboard = mkOption {
+      type = types.str;
     };
   };
 
-  services.udev.extraRules = ''
-    KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
-  '';
+  config = {
+    services.kanata = {
+      enable = true;
+      keyboards = {
+        internalKeyboard = {
+          devices = [
+            cfg.internalKeyboard
+          ];
+          config = kanataConfig;
+        };
+      };
+    };
 
-  hardware.uinput.enable = true;
+    services.udev.extraRules = ''
+      KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+    '';
+
+    hardware.uinput.enable = true;
+  };
 }
