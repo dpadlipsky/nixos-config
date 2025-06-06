@@ -3,11 +3,12 @@
 let
   kanataConfig = ''
     (defsrc
-        caps)
+        caps lmet lalt)
 
     (deflayermap (default-layer)
-        ;; tap caps lock as caps lock, hold caps lock as left control
-        caps lctl)
+        caps lctl
+        lmet lalt
+        lalt lmet)
   '';
 in
 {
