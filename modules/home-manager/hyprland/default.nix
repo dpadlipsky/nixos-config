@@ -5,5 +5,6 @@
     ./rofi.nix
     ./swaylock.nix
     ./waybar.nix
+    ./hypridle.nix
   ];
 }

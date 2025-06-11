@@ -36,6 +36,7 @@ in
         "hyprpaper"
         "waybar"
         "systemctl --user start hyprpolkitagent"
+        "hypridle"
       ];
 
       env = [

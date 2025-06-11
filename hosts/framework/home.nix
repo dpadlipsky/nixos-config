@@ -71,5 +71,6 @@
     rofi.enable = true;
     waybar.enable = true;
     swaylock.enable = true;
+    hypridle.enable = true;
   };
 }

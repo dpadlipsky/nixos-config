@@ -55,19 +55,40 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  services.upower.enable = true;
+  services.colord.enable = true;
+
+  powerManagement.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings = {
+     default_session.command = ''
+      ${pkgs.greetd.tuigreet}/bin/tuigreet \
+        --time \
+        --user-menu \
+        --cmd hyprland
+    '';
+    };
+  };
+  environment.etc."greetd/environments".text = ''
+    hyprland
+  '';
+
+
   services.xserver = {
     enable = true;
     xkb.layout = "us";
     xkb.variant = "";
     dpi = 192;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.enableHidpi = true;
-    displayManager.sddm.settings = {
-      Autologin = {
-        user = "dpadlipsky";
-        session = "hyprland";
-      };
-    };
+    # displayManager.sddm.enable = true;
+    # displayManager.sddm.enableHidpi = true;
+    # displayManager.sddm.settings = {
+    #   Autologin = {
+    #     user = "dpadlipsky";
+    #     session = "hyprland";
+    #   };
+    # };
   };
 
   users.users.dpadlipsky = {
@@ -131,8 +152,21 @@
     };
   };
 
-  # Needed for swaylock
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = {
+    text = ''
+      auth sufficient pam_unix.so try_first_pass likeauth nullok
+      auth sufficient pam_fprintd.so
+      auth include login
+    '';
+  };
+
+  security.pam.services.sddm = {
+    text = ''
+      auth sufficient pam_unix.so try_first_pass likeauth nullok
+      auth sufficient pam_fprintd.so
+      auth include login
+    '';
+  };
 
   dpad = {
     kanata = {
