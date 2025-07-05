@@ -45,6 +45,8 @@
     libsForQt5.kwalletmanager
     gnupg
     pinentry-all
+    freecad-wayland
+    orca-slicer
   ];
 
   home.file = {

@@ -99,6 +99,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.nvidia.acceptLicense = true;
+  services.flatpak.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
@@ -114,6 +115,7 @@
     acpi
     lshw
     pavucontrol
+    bambu-studio
   ];
 
   programs.light.enable = true;
