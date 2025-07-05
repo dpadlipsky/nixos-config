@@ -1,4 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
+
+let
+  unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+  unstable-with-config = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config = { allowUnfree = true; };
+  };
+in
 
 {
   programs.home-manager.enable = true;
@@ -47,6 +55,7 @@
     pinentry-all
     freecad-wayland
     orca-slicer
+    unstable-with-config.claude-code
   ];
 
   home.file = {

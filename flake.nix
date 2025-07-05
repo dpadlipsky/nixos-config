@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -38,6 +39,9 @@
           modules = [
             ./hosts/framework/configuration.nix
             inputs.home-manager.nixosModules.default
+            {
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
           ];
         };
 
