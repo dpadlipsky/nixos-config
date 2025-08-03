@@ -94,6 +94,11 @@
     };
   };
 
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
+
   security.pam.services.swaylock = {};
 
   programs._1password.enable = true;
