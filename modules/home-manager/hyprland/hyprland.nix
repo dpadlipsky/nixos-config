@@ -26,9 +26,9 @@ in
       # TODO: Define monitors dynamically based on host
       monitor = [
         "eDP-1,preferred,auto,2"
-        "DP-2,preferred,-1920x0,2"
+        "DP-3,preferred,-1920x0,2"
         "HDMI-A-1,preferred,0x0,2"
-        "DP-1,highrr,auto,1.3333"
+        "DP-2,highrr,auto,1.3333"
         ",preferred,auto,auto"
       ];
 
