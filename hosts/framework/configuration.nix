@@ -170,6 +170,22 @@
     '';
   };
 
+  security.pam.services.kwallet = {
+    enableKwallet = true;
+  };
+
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = false;
+      settings = {
+        default-cache-ttl = 2592000;
+        max-cache-ttl = 2592000;
+      };
+    };
+  };
+
+
   dpad = {
     kanata = {
       internalKeyboard = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
