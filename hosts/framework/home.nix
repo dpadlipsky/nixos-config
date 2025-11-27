@@ -1,8 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 let
-  unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
-  unstable-with-config = import inputs.nixpkgs-unstable {
+  unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
     config = { allowUnfree = true; };
   };
@@ -45,17 +44,17 @@ in
     gh
     evtest
     hid-tools
-    rpi-imager
     tigervnc
     hyprpolkitagent
-    code-cursor
     libsForQt5.kwallet
     libsForQt5.kwalletmanager
     gnupg
     pinentry-all
     freecad-wayland
     orca-slicer
-    unstable-with-config.claude-code
+    unstable.claude-code
+    unstable.gemini-cli
+    unstable.code-cursor
   ];
 
   home.file = {
