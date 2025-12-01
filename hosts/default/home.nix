@@ -1,4 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
+
+let
+  unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config = { allowUnfree = true; };
+  };
+in
 
 {
   programs.home-manager.enable = true;
@@ -47,11 +54,13 @@
     tigervnc
     stm32cubemx
     hyprpolkitagent
-    code-cursor
+    unstable.code-cursor
     libsForQt5.kwallet
     libsForQt5.kwalletmanager
     gnupg
     pinentry-all
+    unstable.claude-code
+    unstable.gemini-cli
   ];
 
   home.file = {

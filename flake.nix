@@ -23,6 +23,9 @@
           modules = [
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
+            {
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
           ];
         };
 
