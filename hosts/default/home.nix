@@ -15,6 +15,7 @@ in
 
   imports = [
     ../../modules/home-manager
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -62,7 +63,7 @@ in
     unstable.claude-code
     unstable.gemini-cli
     freecad-wayland
-    unstable.bambu-studio
+    (pkgs.writeShellScriptBin "bambu-studio" "flatpak run com.bambulab.BambuStudio")
   ];
 
   home.file = {
@@ -70,6 +71,13 @@ in
 
   home.sessionVariables = {
     EDITOR = "vim";
+  };
+
+  services.flatpak = {
+    enable = true;
+    packages = [
+      { appId = "com.bambulab.BambuStudio"; origin = "flathub"; }
+    ];
   };
 
   dpad = {
