@@ -61,6 +61,8 @@ in
     pinentry-all
     unstable.claude-code
     unstable.gemini-cli
+    freecad-wayland
+    unstable.bambu-studio
   ];
 
   home.file = {
