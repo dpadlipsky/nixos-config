@@ -49,6 +49,7 @@ in
           follow_mouse = true;
           touchpad = {
             natural_scroll = false;
+            tap-and-drag = false;
           };
           sensitivity = cfg.sensitivity;
           repeat_rate = 40;
