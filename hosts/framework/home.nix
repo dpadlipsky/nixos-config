@@ -101,6 +101,8 @@ in
 
   programs.chromium.enable = true;
 
+  programs.kitty.themeFile = "tokyo_night_night";
+
   dpad = {
     cursor.enable = true;
 
