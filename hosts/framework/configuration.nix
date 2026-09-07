@@ -1,18 +1,26 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
-      ./hardware-configuration.nix
+    ./hardware-configuration.nix
 
-      inputs.home-manager.nixosModules.default
+    inputs.home-manager.nixosModules.default
 
-      ../../modules/nixos/hyprland.nix
-      ../../modules/nixos/audio.nix
-      ../../modules/nixos/fonts.nix
-      ../../modules/nixos/kanata.nix
+    ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/audio.nix
+    ../../modules/nixos/fonts.nix
+    ../../modules/nixos/kanata.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
@@ -24,10 +32,17 @@
     timeoutStyle = "countdown";
     gfxmodeEfi = "1024x768";
   };
-  boot.kernelParams = ["quiet" "splash" "loglevel=0" "acpi_rev_override" "amdgpu.dcdebugmask=0x10"];
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+    "loglevel=0"
+    "acpi_rev_override"
+    "amdgpu.dcdebugmask=0x10"
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.luks.devices."luks-de8965c6-4cae-4f0d-a96c-dd55aba6c708".device = "/dev/disk/by-uuid/de8965c6-4cae-4f0d-a96c-dd55aba6c708";
+  boot.initrd.luks.devices."luks-de8965c6-4cae-4f0d-a96c-dd55aba6c708".device =
+    "/dev/disk/by-uuid/de8965c6-4cae-4f0d-a96c-dd55aba6c708";
 
   services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
@@ -63,18 +78,17 @@
   services.greetd = {
     enable = true;
     settings = {
-     default_session.command = ''
-      ${pkgs.greetd.tuigreet}/bin/tuigreet \
-        --time \
-        --user-menu \
-        --cmd hyprland
-    '';
+      default_session.command = ''
+        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+          --time \
+          --user-menu \
+          --cmd hyprland
+      '';
     };
   };
   environment.etc."greetd/environments".text = ''
     hyprland
   '';
-
 
   services.xserver = {
     enable = true;
@@ -94,7 +108,15 @@
   users.users.dpadlipsky = {
     isNormalUser = true;
     description = "David Padlipsky";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "uucp" "docker" "video" "uinput" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "dialout"
+      "uucp"
+      "docker"
+      "video"
+      "uinput"
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -115,7 +137,6 @@
     acpi
     lshw
     pavucontrol
-    bambu-studio
   ];
 
   programs.light.enable = true;
@@ -184,7 +205,6 @@
       };
     };
   };
-
 
   dpad = {
     kanata = {
