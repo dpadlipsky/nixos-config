@@ -54,6 +54,10 @@
 
   networking.firewall.enable = true;
 
+  services.tailscale.enable = true;
+  services.tailscale.package =
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.tailscale;
+
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
