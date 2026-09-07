@@ -1,4 +1,4 @@
-{ pkgs, programs, ... }:
+{ config, lib, ... }:
 
 
 {
@@ -16,6 +16,6 @@
       strip_trailing_spaces = "smart";
     };
     shellIntegration.enableBashIntegration = true;
-    theme = "Tokyo Night";
+    theme = lib.mkIf (config.dpad.hostLabel != "framework") "Tokyo Night";
   };
 }
