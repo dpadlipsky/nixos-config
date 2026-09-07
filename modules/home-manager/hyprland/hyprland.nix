@@ -36,7 +36,7 @@ in
         "hyprpaper"
         "waybar"
         "systemctl --user start hyprpolkitagent"
-        "hypridle"
+        "systemctl --user start hypridle.service"
       ];
 
       env = [

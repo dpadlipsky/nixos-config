@@ -16,6 +16,10 @@ in
     ];
 
     xdg.configFile."hypr/hypridle.conf" = {
+      # hypridle reads its configuration at startup, so reload it after activation.
+      onChange = ''
+        ${pkgs.systemd}/bin/systemctl --user try-restart hypridle.service
+      '';
       text = ''
         general {
             lock_cmd = pidof swaylock || swaylock
