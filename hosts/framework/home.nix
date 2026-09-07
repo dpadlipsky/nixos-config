@@ -13,21 +13,29 @@ let
     };
   };
 
-  codexLatest = pkgs.stdenvNoCC.mkDerivation {
+  codexLatest = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "codex";
     version = "0.153.4";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.153.4/codex-x86_64-unknown-linux-musl.tar.gz";
+      url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-x86_64-unknown-linux-musl.tar.gz";
       hash = "sha256-9HlCTsoJJITcQNh64oxE9MxAI0pgBF1hMeSTgA2BSjA=";
     };
 
+    hostArchive = pkgs.fetchurl {
+      url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-code-mode-host-x86_64-unknown-linux-musl.zst";
+      hash = "sha256-9rxE2cJl9VhCOwedDcl5oS148zY07sydqs5jpbR8vMY=";
+    };
+
+    nativeBuildInputs = [ pkgs.zstd ];
     sourceRoot = ".";
 
     installPhase = ''
       runHook preInstall
 
       install -Dm755 codex-x86_64-unknown-linux-musl $out/bin/codex
+      zstd -dc "$hostArchive" > "$out/bin/codex-code-mode-host"
+      chmod 755 "$out/bin/codex-code-mode-host"
 
       runHook postInstall
     '';
@@ -80,6 +88,7 @@ in
     unstable.claude-code
     unstable.gemini-cli
     unstable.code-cursor
+    bubblewrap
     codexLatest
   ];
 
