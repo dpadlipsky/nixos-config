@@ -42,7 +42,8 @@ in
 
         listener {
             timeout = 600
-            on-timeout = systemctl suspend
+            # Only suspend automatically when running on battery.
+            on-timeout = ${pkgs.systemd}/bin/systemd-ac-power || ${pkgs.systemd}/bin/systemctl suspend
         }
 
       '';

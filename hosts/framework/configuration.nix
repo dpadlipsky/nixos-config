@@ -78,6 +78,7 @@
   services.colord.enable = true;
 
   powerManagement.enable = true;
+  services.logind.lidSwitchExternalPower = "ignore";
 
   services.greetd = {
     enable = true;
