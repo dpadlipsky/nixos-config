@@ -95,10 +95,21 @@ in
     })
     bubblewrap
     (pkgs.callPackage ../../packages/headless-run { })
+    inputs.bambu-desktop.packages.${pkgs.system}.default
     codexLatest
   ];
 
   home.file = {
+    # Replace the bootstrap launcher and skill with the versions from the pin.
+    ".local/bin/bambu-desktop" = {
+      source = "${inputs.bambu-desktop.packages.${pkgs.system}.default}/bin/bambu-desktop";
+      force = true;
+    };
+    ".codex/skills/bambu-studio" = {
+      source = "${inputs.bambu-desktop}/skills/bambu-studio";
+      recursive = true;
+      force = true;
+    };
   };
 
   home.sessionVariables = {

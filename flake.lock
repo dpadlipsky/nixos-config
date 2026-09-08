@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "bambu-desktop": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788852590,
+        "narHash": "sha256-oIxor3uhpCqwUHq92r44u8rvfpXzKpRyXVnvo5gtkzM=",
+        "ref": "main",
+        "rev": "7eb3b8d4fdb8baf7ae10049698682e6eb5b38d51",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://github.com/dpadlipsky/bambu-desktop.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://github.com/dpadlipsky/bambu-desktop.git"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -70,6 +91,7 @@
     },
     "root": {
       "inputs": {
+        "bambu-desktop": "bambu-desktop",
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",

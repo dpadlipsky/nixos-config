@@ -12,6 +12,11 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    bambu-desktop = {
+      url = "git+https://github.com/dpadlipsky/bambu-desktop.git?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -21,7 +26,10 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      packages.${system}.antigravity-cli = pkgs.callPackage ./pkgs/antigravity-cli.nix { };
+      packages.${system} = {
+        antigravity-cli = pkgs.callPackage ./pkgs/antigravity-cli.nix { };
+        bambu-desktop = inputs.bambu-desktop.packages.${system}.default;
+      };
 
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
