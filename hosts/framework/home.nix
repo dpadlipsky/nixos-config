@@ -89,6 +89,7 @@ in
     unstable.gemini-cli
     unstable.code-cursor
     bubblewrap
+    (pkgs.callPackage ../../packages/headless-run { })
     codexLatest
   ];
 
