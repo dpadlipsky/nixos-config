@@ -1,0 +1,3 @@
+interface:
+  display_name: "Bambu Studio"
+  short_description: "Control local Bambu Studio and prepare print jobs"
