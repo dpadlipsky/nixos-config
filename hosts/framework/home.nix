@@ -89,6 +89,10 @@ in
     unstable.claude-code
     unstable.gemini-cli
     unstable.code-cursor
+    (pkgs.callPackage ../../pkgs/t3-code.nix {
+      inherit (unstable) appimageTools;
+      codex = codexLatest;
+    })
     bubblewrap
     (pkgs.callPackage ../../packages/headless-run { })
     codexLatest
