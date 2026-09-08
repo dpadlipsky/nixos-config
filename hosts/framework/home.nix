@@ -85,6 +85,7 @@ in
     gnupg
     pinentry-all
     freecad-wayland
+    openscad
     unstable.claude-code
     unstable.gemini-cli
     unstable.code-cursor
