@@ -1,4 +1,4 @@
-{ fetchurl, symlinkJoin, makeDesktopItem, appimageTools, codex }:
+{ fetchurl, symlinkJoin, makeDesktopItem, makeWrapper, appimageTools, codex }:
 
 let
   t3Source = fetchurl {
@@ -24,6 +24,7 @@ let
 in
 symlinkJoin {
   name = "t3code-0.0.40";
+  nativeBuildInputs = [ makeWrapper ];
   paths = [
     t3Desktop
     (makeDesktopItem {
@@ -39,6 +40,12 @@ symlinkJoin {
     })
   ];
   postBuild = ''
+    # T3 regenerates its OAuth URL handler on startup using APPIMAGE, falling
+    # back to the extracted Electron binary when unset. Route callbacks through
+    # the Nix FHS launcher so they have the same runtime as the original app.
+    wrapProgram $out/bin/t3code-desktop \
+      --set APPIMAGE "$out/bin/t3code-desktop" \
+      --set T3CODE_DISABLE_AUTO_UPDATE 1
     install -Dm644 ${t3Contents}/t3code.png $out/share/icons/hicolor/512x512/apps/t3code.png
   '';
 }
