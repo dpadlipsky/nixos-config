@@ -21,6 +21,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
+      packages.${system}.antigravity-cli = pkgs.callPackage ./pkgs/antigravity-cli.nix { };
 
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
