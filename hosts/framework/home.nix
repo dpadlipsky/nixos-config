@@ -13,33 +13,7 @@ let
     };
   };
 
-  codexLatest = pkgs.stdenvNoCC.mkDerivation rec {
-    pname = "codex";
-    version = "0.164.0";
-
-    src = pkgs.fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-x86_64-unknown-linux-musl.tar.gz";
-      hash = "sha256-kN0LA7KK/Lf6czpPc7QT2ykWpHNH79Q/tmnMHHdO6OQ=";
-    };
-
-    hostArchive = pkgs.fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-code-mode-host-x86_64-unknown-linux-musl.zst";
-      hash = "sha256-LsGhbR6HJmfAMRxX+nMG4MPskNafGjKEd1eGywoFz4o=";
-    };
-
-    nativeBuildInputs = [ pkgs.zstd ];
-    sourceRoot = ".";
-
-    installPhase = ''
-      runHook preInstall
-
-      install -Dm755 codex-x86_64-unknown-linux-musl $out/bin/codex
-      zstd -dc "$hostArchive" > "$out/bin/codex-code-mode-host"
-      chmod 755 "$out/bin/codex-code-mode-host"
-
-      runHook postInstall
-    '';
-  };
+  codexLatest = pkgs.callPackage ../../pkgs/codex.nix { };
 in
 
 {
@@ -86,7 +60,9 @@ in
     pinentry-all
     freecad-wayland
     openscad
-    unstable.claude-code
+    (pkgs.callPackage ../../pkgs/claude-code.nix {
+      inherit (unstable) claude-code;
+    })
     unstable.gemini-cli
     unstable.code-cursor
     (pkgs.callPackage ../../pkgs/t3-code.nix {
@@ -95,6 +71,7 @@ in
     })
     bubblewrap
     (pkgs.callPackage ../../packages/headless-run { })
+    (pkgs.callPackage ../../packages/updaters { })
     inputs.bambu-desktop.packages.${pkgs.system}.default
     codexLatest
   ];
