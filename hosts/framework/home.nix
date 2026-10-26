@@ -15,16 +15,16 @@ let
 
   codexLatest = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "codex";
-    version = "0.153.4";
+    version = "0.164.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-x86_64-unknown-linux-musl.tar.gz";
-      hash = "sha256-9HlCTsoJJITcQNh64oxE9MxAI0pgBF1hMeSTgA2BSjA=";
+      hash = "sha256-kN0LA7KK/Lf6czpPc7QT2ykWpHNH79Q/tmnMHHdO6OQ=";
     };
 
     hostArchive = pkgs.fetchurl {
       url = "https://github.com/openai/codex/releases/download/rust-v${version}/codex-code-mode-host-x86_64-unknown-linux-musl.zst";
-      hash = "sha256-9rxE2cJl9VhCOwedDcl5oS148zY07sydqs5jpbR8vMY=";
+      hash = "sha256-LsGhbR6HJmfAMRxX+nMG4MPskNafGjKEd1eGywoFz4o=";
     };
 
     nativeBuildInputs = [ pkgs.zstd ];
