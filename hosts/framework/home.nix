@@ -65,6 +65,7 @@ in
     })
     unstable.gemini-cli
     unstable.code-cursor
+    (pkgs.callPackage ../../pkgs/antigravity-cli.nix { })
     (pkgs.callPackage ../../pkgs/t3-code.nix {
       inherit (unstable) appimageTools;
       codex = codexLatest;
