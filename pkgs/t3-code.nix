@@ -2,19 +2,19 @@
 
 let
   t3Source = fetchurl {
-    url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.40/T3-Code-0.0.40-x86_64.AppImage";
-    hash = "sha256-i/X9RMt/rQxDGR1U/v35dKgifVBQXsuKvPdjJiCfJko=";
+    url = "https://github.com/pingdotgg/t3code/releases/download/v0.1.2/T3-Code-0.1.2-x86_64.AppImage";
+    hash = "sha256-zwHi0Wfv+dAcTBAE0xssDaniUizJQmLkFkTRyxXf21w=";
   };
 
   t3Contents = appimageTools.extract {
     pname = "t3code-desktop";
-    version = "0.0.40";
+    version = "0.1.2";
     src = t3Source;
   };
 
   t3Desktop = appimageTools.wrapType2 {
     pname = "t3code-desktop";
-    version = "0.0.40";
+    version = "0.1.2";
     src = t3Source;
     extraPkgs = p: [ codex p.git p.nodejs_24 ];
     profile = ''
@@ -23,7 +23,7 @@ let
   };
 in
 symlinkJoin {
-  name = "t3code-0.0.40";
+  name = "t3code-0.1.2";
   nativeBuildInputs = [ makeWrapper ];
   paths = [
     t3Desktop
