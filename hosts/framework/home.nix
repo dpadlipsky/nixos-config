@@ -75,6 +75,7 @@ in
     (pkgs.callPackage ../../packages/updaters { })
     inputs.bambu-desktop.packages.${pkgs.system}.default
     codexLatest
+    inputs.opencode.packages.${pkgs.system}.default
   ];
 
   home.file = {
