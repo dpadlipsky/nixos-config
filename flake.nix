@@ -13,6 +13,9 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
+    # Tracks upstream's default branch; `nix flake update opencode` pulls HEAD.
+    opencode.url = "github:sst/opencode";
+
     bambu-desktop = {
       url = "git+https://github.com/dpadlipsky/bambu-desktop.git?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
