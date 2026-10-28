@@ -17,7 +17,7 @@
     opencode.url = "github:sst/opencode";
 
     bambu-desktop = {
-      url = "git+https://github.com/dpadlipsky/bambu-desktop.git?ref=main";
+      url = "git+ssh://git@github.com/dpadlipsky/bambu-desktop.git?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
