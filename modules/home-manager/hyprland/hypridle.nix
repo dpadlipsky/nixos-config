@@ -17,7 +17,9 @@ in
 
     xdg.configFile."hypr/hypridle.conf" = {
       # hypridle reads its configuration at startup, so reload it after activation.
+      # Reload first so the unit is found on the first activation that installs it.
       onChange = ''
+        ${pkgs.systemd}/bin/systemctl --user daemon-reload
         ${pkgs.systemd}/bin/systemctl --user try-restart hypridle.service
       '';
       text = ''
