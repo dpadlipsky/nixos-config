@@ -29,7 +29,6 @@
     firefox
     discord-screenaudio
     wireplumber
-    webcord
     neovim
     gh
 
