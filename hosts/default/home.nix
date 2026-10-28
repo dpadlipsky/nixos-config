@@ -5,6 +5,8 @@ let
     system = pkgs.system;
     config = { allowUnfree = true; };
   };
+
+  codexLatest = pkgs.callPackage ../../pkgs/codex.nix { };
 in
 
 {
@@ -37,7 +39,6 @@ in
 
   home.packages = with pkgs; [
     vscode
-    discord
     lm_sensors
     sublime
     spotify
@@ -47,7 +48,6 @@ in
     pulsemixer
     wireplumber
     xdg-desktop-portal-hyprland
-    webcord
     neovim
     gh
     evtest
@@ -55,15 +55,23 @@ in
     tigervnc
     stm32cubemx
     hyprpolkitagent
-    unstable.code-cursor
     libsForQt5.kwallet
     libsForQt5.kwalletmanager
     gnupg
     pinentry-all
-    unstable.claude-code
     unstable.gemini-cli
     freecad-wayland
     (pkgs.writeShellScriptBin "bambu-studio" "flatpak run com.bambulab.BambuStudio")
+      (pkgs.callPackage ../../pkgs/claude-code.nix {
+      inherit (unstable) claude-code;
+    })
+    unstable.gemini-cli
+    unstable.code-cursor
+    (pkgs.callPackage ../../pkgs/antigravity-cli.nix { })
+    (pkgs.callPackage ../../pkgs/t3-code.nix {
+      inherit (unstable) appimageTools;
+      codex = codexLatest;
+    })
   ];
 
   home.file = {
