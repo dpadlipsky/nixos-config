@@ -101,6 +101,9 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  # Record machine-check/hardware errors to debug hard freezes (ras-mc-ctl --errors).
+  hardware.rasdaemon.enable = true;
+
   virtualisation.docker.enable = true;
 
   services.flatpak.enable = true;
