@@ -96,12 +96,13 @@ in
     hyprland = {
       enable = true;
       sensitivity = -0.5;
-      animations.enable = true;
+      animations.enable = false;
     };
 
     hyprpaper.enable = true;
     rofi.enable = true;
     waybar.enable = true;
     swaylock.enable = true;
+    hypridle.enable = true;
   };
 }

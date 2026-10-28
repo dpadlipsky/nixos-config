@@ -52,12 +52,26 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session.command = ''
+        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+          --time \
+          --user-menu \
+          --cmd hyprland
+      '';
+    };
+  };
+  environment.etc."greetd/environments".text = ''
+    hyprland
+  '';
+
   # Configure keymap in X11
   services.xserver = {
     enable = true;
     xkb.layout = "us";
     xkb.variant = "";
-    displayManager.sddm.enable = true;
   };
 
   users.users.dpadlipsky = {
@@ -119,7 +133,7 @@
     login.u2fAuth = true;
     sudo.u2fAuth = true;
     polkit-1.u2fAuth = true;
-    sddm.enableKwallet = true;
+    greetd.enableKwallet = true;
   };
 
   security.pam.services.kwallet = {
@@ -127,9 +141,9 @@
   };
 
   # Secret Service (org.freedesktop.secrets) for libsecret clients; T3 Code
-  # stores its connection catalog there. Unlocked by the SDDM login password.
+  # stores its connection catalog there. Unlocked by the greetd login password.
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   programs = {
       gnupg.agent = {
