@@ -7,8 +7,6 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    # Preserve VRAM across suspend so Hyprland survives resume.
-    powerManagement.enable = true;
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
