@@ -30,6 +30,10 @@
   networking.firewall.enable = true;
   # networking.firewall.allowedTCPPorts = [ 5173 ];
 
+  services.tailscale.enable = true;
+  services.tailscale.package =
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.tailscale;
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
