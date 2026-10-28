@@ -30,6 +30,10 @@
   networking.firewall.enable = true;
   # networking.firewall.allowedTCPPorts = [ 5173 ];
 
+  services.tailscale.enable = true;
+  services.tailscale.package =
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.tailscale;
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
@@ -121,6 +125,11 @@
   security.pam.services.kwallet = {
     enableKwallet = true;
   };
+
+  # Secret Service (org.freedesktop.secrets) for libsecret clients; T3 Code
+  # stores its connection catalog there. Unlocked by the SDDM login password.
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   programs = {
       gnupg.agent = {
