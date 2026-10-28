@@ -25,7 +25,7 @@
     timeoutStyle = "countdown";
   };
 
-  networking.hostName = "dpadlipsky";
+  networking.hostName = "desktop";
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
   # networking.firewall.allowedTCPPorts = [ 5173 ];
