@@ -13,12 +13,12 @@
         "rev": "7eb3b8d4fdb8baf7ae10049698682e6eb5b38d51",
         "revCount": 2,
         "type": "git",
-        "url": "https://github.com/dpadlipsky/bambu-desktop.git"
+        "url": "ssh://git@github.com/dpadlipsky/bambu-desktop.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "https://github.com/dpadlipsky/bambu-desktop.git"
+        "url": "ssh://git@github.com/dpadlipsky/bambu-desktop.git"
       }
     },
     "home-manager": {

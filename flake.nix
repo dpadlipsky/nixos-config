@@ -17,7 +17,7 @@
     opencode.url = "github:sst/opencode";
 
     bambu-desktop = {
-      url = "git+https://github.com/dpadlipsky/bambu-desktop.git?ref=main";
+      url = "git+ssh://git@github.com/dpadlipsky/bambu-desktop.git?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -26,7 +26,10 @@
     { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
       packages.${system} = {
