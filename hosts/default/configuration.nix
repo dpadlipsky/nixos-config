@@ -126,6 +126,11 @@
     enableKwallet = true;
   };
 
+  # Secret Service (org.freedesktop.secrets) for libsecret clients; T3 Code
+  # stores its connection catalog there. Unlocked by the SDDM login password.
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+
   programs = {
       gnupg.agent = {
         enable = true;
