@@ -103,6 +103,7 @@ in
     rofi.enable = true;
     waybar.enable = true;
     swaylock.enable = true;
-    hypridle.enable = true;
+    # Off: the desktop has frozen after hypridle turned the monitors off (NVIDIA).
+    hypridle.enable = false;
   };
 }
