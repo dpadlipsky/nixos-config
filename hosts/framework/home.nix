@@ -60,6 +60,7 @@ in
     pinentry-all
     freecad-wayland
     openscad
+    rapid-photo-downloader
     (pkgs.callPackage ../../pkgs/claude-code.nix {
       inherit (unstable) claude-code;
     })
