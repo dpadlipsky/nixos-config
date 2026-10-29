@@ -121,6 +121,7 @@
       "docker"
       "video"
       "uinput"
+      "camera"
     ];
   };
 
@@ -146,6 +147,7 @@
 
   programs.light.enable = true;
   programs.steam.enable = true;
+  programs.gphoto2.enable = true;
   virtualisation.docker.enable = true;
 
   services.fwupd.enable = true;
