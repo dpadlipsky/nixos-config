@@ -98,7 +98,6 @@ in
       };
 
       dwindle = {
-          pseudotile = true;
           preserve_split = true;
       };
 
@@ -109,16 +108,11 @@ in
       misc = {
         force_default_wallpaper = 0;
         disable_splash_rendering = true;
-        vfr = 0;
       };
 
       debug = {
         damage_tracking = 0;
-      };
-
-      render = {
-        explicit_sync = 2;
-        explicit_sync_kms = 0;
+        vfr = false;
       };
 
 #      opengl = { nvidia_anti_flicker = 0; force_introspection = 2; };
@@ -132,7 +126,7 @@ in
         "$mainMod, H, togglefloating,"
         "$mainMod, SPACE, exec, rofi -show drun"
         "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, J, togglesplit, # dwindle"
+        "$mainMod, J, layoutmsg, togglesplit # dwindle"
         "$mainMod CTRL, F, fullscreen, 0"
         # TODO: Once 0.36.0 comes out change this to 2 and remove Meta + Ctrl + F shortcut
         "$mainMod, F, fullscreen, 1"
