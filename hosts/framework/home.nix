@@ -14,6 +14,14 @@ let
   };
 
   codexLatest = pkgs.callPackage ../../pkgs/codex.nix { };
+
+  # Upstream's nix/hashes.json lags bun.lock; drop this override once it catches up.
+  opencodeUpstream = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  opencode = opencodeUpstream.override {
+    node_modules = opencodeUpstream.node_modules.override {
+      hash = "sha256-Mnn7G5pFXpKzE80NhIMMDa35Z/U4lfnw3tqjABi4b3k=";
+    };
+  };
 in
 
 {
@@ -76,7 +84,7 @@ in
     inputs.bambu-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.photo-uploader.packages.${pkgs.stdenv.hostPlatform.system}.default
     codexLatest
-    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
+    opencode
   ];
 
   home.file = {
