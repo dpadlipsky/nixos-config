@@ -1,10 +1,10 @@
-{ writeShellApplication, bubblewrap, xvfb-run, xorg }:
+{ writeShellApplication, bubblewrap, xvfb-run, xorg-server }:
 
 let
-  # nixpkgs' minimal xorg.xvfb disables GLX. OpenSCAD needs the full server's
+  # nixpkgs' minimal xvfb disables GLX. OpenSCAD needs the full server's
   # Xvfb binary to render previews with software OpenGL.
   xvfbWithOpenGL = xvfb-run.override {
-    xorg = xorg // { xvfb = xorg.xorgserver; };
+    xvfb = xorg-server;
   };
 in writeShellApplication {
   name = "headless-run";

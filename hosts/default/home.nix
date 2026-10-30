@@ -2,7 +2,7 @@
 
 let
   unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config = { allowUnfree = true; };
   };
 
@@ -44,7 +44,7 @@ in
     spotify
     chromium
     firefox
-    discord-screenaudio
+    vesktop
     pulsemixer
     wireplumber
     xdg-desktop-portal-hyprland
@@ -55,17 +55,15 @@ in
     tigervnc
     stm32cubemx
     hyprpolkitagent
-    libsForQt5.kwallet
-    libsForQt5.kwalletmanager
+    kdePackages.kwallet
+    kdePackages.kwalletmanager
     gnupg
     pinentry-all
-    unstable.gemini-cli
     freecad-wayland
     (pkgs.writeShellScriptBin "bambu-studio" "flatpak run com.bambulab.BambuStudio")
       (pkgs.callPackage ../../pkgs/claude-code.nix {
       inherit (unstable) claude-code;
     })
-    unstable.gemini-cli
     unstable.code-cursor
     (pkgs.callPackage ../../pkgs/antigravity-cli.nix { })
     (pkgs.callPackage ../../pkgs/t3-code.nix {

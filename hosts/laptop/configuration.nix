@@ -32,8 +32,6 @@
   networking.hostName = "dpadlipsky";
 
   networking.networkmanager.enable = true;
-  networking.wireless.enable = false;
-  networking.wireless.userControlled.enable = true;
 
   networking.firewall.enable = true;
 
@@ -62,9 +60,11 @@
     xkb.variant = "";
     # Needed to fix login screen scaling
     dpi = 192;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.enableHidpi = true;
-    displayManager.sddm.settings = {
+  };
+  services.displayManager.sddm = {
+    enable = true;
+    enableHidpi = true;
+    settings = {
       Autologin = {
         user = "dpadlipsky";
         session = "hyprland";
@@ -97,7 +97,6 @@
     lshw
   ];
 
-  programs.light.enable = true;
   programs.steam.enable = true;
 
   # This value determines the NixOS release from which the default
@@ -118,14 +117,14 @@
   # Needed for swaylock
   security.pam.services.swaylock = {};
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
-    vaapiIntel
-    vaapiVdpau
+    intel-vaapi-driver
+    libva-vdpau-driver
     libvdpau-va-gl
     libva
   ];

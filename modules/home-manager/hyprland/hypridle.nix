@@ -31,8 +31,8 @@ in
 
         listener {
             timeout = 60
-            on-timeout = light -O && light -S 10
-            on-resume = light -I
+            on-timeout = brightnessctl -s set 10%
+            on-resume = brightnessctl -r
         }
 
         listener {
