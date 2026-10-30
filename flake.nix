@@ -20,6 +20,11 @@
       url = "git+ssh://git@github.com/dpadlipsky/bambu-desktop.git?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    photo-uploader = {
+      url = "git+ssh://git@github.com/dpadlipsky/photo-uploader.git?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
