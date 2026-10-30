@@ -123,6 +123,27 @@
         "type": "github"
       }
     },
+    "photo-uploader": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793325732,
+        "narHash": "sha256-mKKpx2KD/ZKmfLLlzl+XurJHatju8PnXV9x2Wo0wXvw=",
+        "ref": "main",
+        "rev": "9675219ec97b81396f38fa9c7e6ad6c9c2792eac",
+        "revCount": 4,
+        "type": "git",
+        "url": "ssh://git@github.com/dpadlipsky/photo-uploader.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/dpadlipsky/photo-uploader.git"
+      }
+    },
     "root": {
       "inputs": {
         "bambu-desktop": "bambu-desktop",
@@ -130,7 +151,8 @@
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "opencode": "opencode"
+        "opencode": "opencode",
+        "photo-uploader": "photo-uploader"
       }
     }
   },

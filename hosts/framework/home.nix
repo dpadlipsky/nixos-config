@@ -75,6 +75,7 @@ in
     (pkgs.callPackage ../../packages/headless-run { })
     (pkgs.callPackage ../../packages/updaters { })
     inputs.bambu-desktop.packages.${pkgs.system}.default
+    inputs.photo-uploader.packages.${pkgs.system}.default
     codexLatest
     inputs.opencode.packages.${pkgs.system}.default
   ];
