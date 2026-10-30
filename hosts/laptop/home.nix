@@ -27,7 +27,7 @@
     sublime
     spotify
     firefox
-    discord-screenaudio
+    vesktop
     wireplumber
     neovim
     gh

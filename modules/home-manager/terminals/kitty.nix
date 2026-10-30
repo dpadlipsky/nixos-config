@@ -16,6 +16,6 @@
       strip_trailing_spaces = "smart";
     };
     shellIntegration.enableBashIntegration = true;
-    theme = lib.mkIf (config.dpad.hostLabel != "framework") "Tokyo Night";
+    themeFile = lib.mkIf (config.dpad.hostLabel != "framework") "tokyo_night_night";
   };
 }

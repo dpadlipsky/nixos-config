@@ -7,7 +7,7 @@
 
 let
   unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config = {
       allowUnfree = true;
     };
@@ -44,7 +44,7 @@ in
     spotify
     chromium
     firefox
-    discord-screenaudio
+    vesktop
     pulsemixer
     wireplumber
     xdg-desktop-portal-hyprland
@@ -54,8 +54,8 @@ in
     hid-tools
     tigervnc
     hyprpolkitagent
-    libsForQt5.kwallet
-    libsForQt5.kwalletmanager
+    kdePackages.kwallet
+    kdePackages.kwalletmanager
     gnupg
     pinentry-all
     freecad-wayland
@@ -64,7 +64,6 @@ in
     (pkgs.callPackage ../../pkgs/claude-code.nix {
       inherit (unstable) claude-code;
     })
-    unstable.gemini-cli
     unstable.code-cursor
     (pkgs.callPackage ../../pkgs/antigravity-cli.nix { })
     (pkgs.callPackage ../../pkgs/t3-code.nix {
@@ -74,16 +73,16 @@ in
     bubblewrap
     (pkgs.callPackage ../../packages/headless-run { })
     (pkgs.callPackage ../../packages/updaters { })
-    inputs.bambu-desktop.packages.${pkgs.system}.default
-    inputs.photo-uploader.packages.${pkgs.system}.default
+    inputs.bambu-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.photo-uploader.packages.${pkgs.stdenv.hostPlatform.system}.default
     codexLatest
-    inputs.opencode.packages.${pkgs.system}.default
+    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   home.file = {
     # Replace the bootstrap launcher and skill with the versions from the pin.
     ".local/bin/bambu-desktop" = {
-      source = "${inputs.bambu-desktop.packages.${pkgs.system}.default}/bin/bambu-desktop";
+      source = "${inputs.bambu-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/bambu-desktop";
       force = true;
     };
     ".codex/skills/bambu-studio" = {

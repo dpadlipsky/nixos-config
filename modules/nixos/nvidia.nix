@@ -13,5 +13,5 @@
   };
 
   nixpkgs.config.cudaSupport = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 }

@@ -32,7 +32,7 @@
 
   services.tailscale.enable = true;
   services.tailscale.package =
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.tailscale;
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.tailscale;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -56,7 +56,7 @@
     enable = true;
     settings = {
       default_session.command = ''
-        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+        ${pkgs.tuigreet}/bin/tuigreet \
           --time \
           --user-menu \
           --cmd hyprland
@@ -123,9 +123,9 @@
     };
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   security.pam.services.swaylock = {};

@@ -49,14 +49,12 @@
   networking.hostName = "dpadlipsky";
 
   networking.networkmanager.enable = true;
-  networking.wireless.enable = false;
-  networking.wireless.userControlled.enable = true;
 
   networking.firewall.enable = true;
 
   services.tailscale.enable = true;
   services.tailscale.package =
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.tailscale;
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.tailscale;
 
   time.timeZone = "America/Los_Angeles";
 
@@ -78,13 +76,13 @@
   services.colord.enable = true;
 
   powerManagement.enable = true;
-  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
 
   services.greetd = {
     enable = true;
     settings = {
       default_session.command = ''
-        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+        ${pkgs.tuigreet}/bin/tuigreet \
           --time \
           --user-menu \
           --cmd hyprland
@@ -145,7 +143,6 @@
     pavucontrol
   ];
 
-  programs.light.enable = true;
   programs.steam.enable = true;
   programs.gphoto2.enable = true;
   virtualisation.docker.enable = true;
