@@ -85,12 +85,12 @@
         ${pkgs.tuigreet}/bin/tuigreet \
           --time \
           --user-menu \
-          --cmd hyprland
+          --cmd start-hyprland
       '';
     };
   };
   environment.etc."greetd/environments".text = ''
-    hyprland
+    start-hyprland
   '';
 
   services.xserver = {
