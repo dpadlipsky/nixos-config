@@ -14,4 +14,7 @@
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # Trash, removable drives and network shares in the file manager.
+  services.gvfs.enable = true;
 }
