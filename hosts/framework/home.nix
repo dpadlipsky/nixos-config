@@ -33,7 +33,7 @@ let
     if [ $# -gt 0 ]; then
       exec wine "$@"
     fi
-    exe=$(find "$WINEPREFIX/drive_c" -iname 'NX Studio.exe' -print -quit 2>/dev/null)
+    exe=$(find "$WINEPREFIX/drive_c" -iname 'NXStudio.exe' -print -quit 2>/dev/null)
     if [ -z "$exe" ]; then
       echo "NX Studio isn't installed yet; run: nx-studio /path/to/S-NXSTDO-*.exe" >&2
       exit 1
