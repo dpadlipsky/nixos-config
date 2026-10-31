@@ -23,6 +23,8 @@ in
       configType = "hyprlang";
     };
 
+    home.packages = [ pkgs.nautilus ];
+
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     wayland.windowManager.hyprland.settings = {
@@ -127,6 +129,7 @@ in
         "$mainMod SHIFT, L, exit,"
         "$mainMod, H, togglefloating,"
         "$mainMod, SPACE, exec, rofi -show drun"
+        "$mainMod, E, exec, nautilus"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, layoutmsg, togglesplit # dwindle"
         "$mainMod CTRL, F, fullscreen, 0"
