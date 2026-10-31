@@ -23,7 +23,16 @@ in
       configType = "hyprlang";
     };
 
-    home.packages = [ pkgs.nautilus ];
+    home.packages = [
+      pkgs.nautilus
+      # Screenshots and synthetic input for agents driving the desktop
+      # (agent-config's hyprland-desktop skill).
+      pkgs.grim
+      pkgs.slurp
+      pkgs.wtype
+      pkgs.wlrctl
+      pkgs.jq
+    ];
 
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
