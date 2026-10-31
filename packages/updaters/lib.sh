@@ -2,8 +2,11 @@
 #   name     name for the commit/PR title, e.g. "T3 Code"
 #   slug     branch slug, e.g. "t3code"
 #   sources  repo-relative JSON pin read by the package; must have .version
+#            unless current_version is defined
 # defines:
 #   latest_version              print the newest upstream version
+#   current_version FILE        (optional) print the pinned version from FILE;
+#                               defaults to its .version
 #   write_sources VERSION FILE  write the pin for VERSION to FILE
 #   release_url VERSION         (optional) release link for the PR description
 # and ends with `updater_main "$@"`.
@@ -92,7 +95,11 @@ updater_main() {
     trap 'echo "$name: failed; worktree left at $work" >&2' ERR
   fi
 
-  current=$(jq -r .version "$work/$sources")
+  if declare -F current_version >/dev/null; then
+    current=$(current_version "$work/$sources")
+  else
+    current=$(jq -r .version "$work/$sources")
+  fi
   if [ "$version" = "$current" ]; then
     echo "$name is already at $version"
     [ -n "$local_only" ] || updater_remove_worktree "$repo" "$work" "$branch"
