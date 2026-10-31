@@ -23,6 +23,8 @@ in
       configType = "hyprlang";
     };
 
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
     wayland.windowManager.hyprland.settings = {
       # TODO: Define monitors dynamically based on host
       monitor = [
