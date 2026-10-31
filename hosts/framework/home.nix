@@ -22,6 +22,24 @@ let
       hash = "sha256-Mnn7G5pFXpKzE80NhIMMDa35Z/U4lfnw3tqjABi4b3k=";
     };
   };
+
+  wine = pkgs.wineWow64Packages.stagingFull;
+
+  # NX Studio has no Linux build, so run it under Wine in its own prefix.
+  # With arguments (e.g. the installer .exe) they run in that prefix instead.
+  nxStudio = pkgs.writeShellScriptBin "nx-studio" ''
+    export WINEPREFIX="''${XDG_DATA_HOME:-$HOME/.local/share}/wine-nxstudio"
+    export PATH=${wine}/bin:$PATH
+    if [ $# -gt 0 ]; then
+      exec wine "$@"
+    fi
+    exe=$(find "$WINEPREFIX/drive_c" -iname 'NX Studio.exe' -print -quit 2>/dev/null)
+    if [ -z "$exe" ]; then
+      echo "NX Studio isn't installed yet; run: nx-studio /path/to/S-NXSTDO-*.exe" >&2
+      exit 1
+    fi
+    exec wine "$exe"
+  '';
 in
 
 {
@@ -69,6 +87,9 @@ in
     freecad-wayland
     openscad
     darktable
+    wine
+    winetricks
+    nxStudio
     (pkgs.callPackage ../../pkgs/claude-code.nix {
       inherit (unstable) claude-code;
     })
