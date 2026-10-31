@@ -23,6 +23,36 @@ let
     };
   };
 
+  # LibRaw with the unmerged Nikon HE/HE* decoder (LibRaw/LibRaw#826); drop
+  # this once a LibRaw release ships HE support and darktable picks it up.
+  librawNikonHe = pkgs.libraw.overrideAttrs {
+    version = "0.22.0-nikon-he";
+    src = pkgs.fetchFromGitHub {
+      owner = "yogthos";
+      repo = "LibRaw";
+      rev = "499bfd4cbf802c2fb5eac4c9a6f53bbeb776cad1";
+      hash = "sha256-wpgk2Bm3nJnBn41MxRngLcAhLxWAmo+anO/HLwESTVM=";
+    };
+    # LibRaw has no color matrix for the Z5 II; use rawspeed's.
+    postPatch = ''
+      substituteInPlace src/tables/colordata.cpp --replace-fail \
+        '{ LIBRAW_CAMERAMAKER_Nikon, "Z6_3",' \
+        '{ LIBRAW_CAMERAMAKER_Nikon, "Z5_2", 0, 0,
+          { 13133,-5542,-1280,-4325,12543,1972,34,792,7662 } },
+        { LIBRAW_CAMERAMAKER_Nikon, "Z6_3",'
+    '';
+  };
+
+  # darktable builds its own LibRaw copy by default, and only hands CR3 to
+  # LibRaw; link the patched one and send NEFs through it as well.
+  darktable = pkgs.darktable.overrideAttrs (old: {
+    buildInputs = old.buildInputs ++ [ librawNikonHe ];
+    cmakeFlags = old.cmakeFlags ++ [ "-DDONT_USE_INTERNAL_LIBRAW=ON" ];
+    preFixup = old.preFixup + ''
+      gappsWrapperArgs+=(--add-flags "--conf libraw_extensions=nef")
+    '';
+  });
+
   wine = pkgs.wineWow64Packages.stagingFull;
 
   # NX Studio has no Linux build, so run it under Wine in its own prefix.
