@@ -25,7 +25,15 @@ in
 
     home.packages = [ pkgs.nautilus ];
 
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-gnome ];
+
+    # Pick files in Nautilus: the GNOME portal hands FileChooser to it, so
+    # Nautilus must be D-Bus activatable.
+    xdg.portal.config.hyprland = {
+      default = [ "hyprland" "gtk" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
+    };
+    dbus.packages = [ pkgs.nautilus ];
 
     wayland.windowManager.hyprland.settings = {
       # TODO: Define monitors dynamically based on host
