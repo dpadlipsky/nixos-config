@@ -27,6 +27,52 @@ in
 
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
+    # Dark Tokyo Night look for Nautilus (GTK 4) and the portal's file picker (GTK 3),
+    # matching kitty's tokyo_night_night theme.
+    gtk = let
+      tokyoNight = ''
+        @define-color accent_color #7aa2f7;
+        @define-color accent_bg_color #7aa2f7;
+        @define-color accent_fg_color #1a1b26;
+        @define-color destructive_color #f7768e;
+        @define-color destructive_bg_color #f7768e;
+        @define-color destructive_fg_color #1a1b26;
+        @define-color success_color #9ece6a;
+        @define-color warning_color #e0af68;
+        @define-color error_color #f7768e;
+        @define-color window_bg_color #1a1b26;
+        @define-color window_fg_color #c0caf5;
+        @define-color view_bg_color #1a1b26;
+        @define-color view_fg_color #c0caf5;
+        @define-color headerbar_bg_color #16161e;
+        @define-color headerbar_fg_color #c0caf5;
+        @define-color headerbar_backdrop_color #16161e;
+        @define-color sidebar_bg_color #16161e;
+        @define-color sidebar_fg_color #a9b1d6;
+        @define-color sidebar_backdrop_color #16161e;
+        @define-color card_bg_color #24283b;
+        @define-color card_fg_color #c0caf5;
+        @define-color dialog_bg_color #1f2335;
+        @define-color dialog_fg_color #c0caf5;
+        @define-color popover_bg_color #1f2335;
+        @define-color popover_fg_color #c0caf5;
+      '';
+    in {
+      enable = true;
+      colorScheme = "dark";
+      theme = {
+        name = "adw-gtk3-dark";
+        package = pkgs.adw-gtk3;
+      };
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme.override { color = "blue"; };
+      };
+      gtk3.extraCss = tokyoNight;
+      gtk4.theme = null;
+      gtk4.extraCss = tokyoNight;
+    };
+
     wayland.windowManager.hyprland.settings = {
       # TODO: Define monitors dynamically based on host
       monitor = [
