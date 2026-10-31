@@ -23,6 +23,8 @@ in
       configType = "hyprlang";
     };
 
+    home.packages = [ pkgs.nautilus ];
+
     wayland.windowManager.hyprland.settings = {
       # TODO: Define monitors dynamically based on host
       monitor = [
@@ -125,6 +127,7 @@ in
         "$mainMod SHIFT, L, exit,"
         "$mainMod, H, togglefloating,"
         "$mainMod, SPACE, exec, rofi -show drun"
+        "$mainMod, E, exec, nautilus"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, layoutmsg, togglesplit # dwindle"
         "$mainMod CTRL, F, fullscreen, 0"
