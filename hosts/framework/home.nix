@@ -30,6 +30,10 @@ let
   nxStudio = pkgs.writeShellScriptBin "nx-studio" ''
     export WINEPREFIX="''${XDG_DATA_HOME:-$HOME/.local/share}/wine-nxstudio"
     export PATH=${wine}/bin:$PATH
+    # Sign-in uses WebView2, which only renders under Wine without the GPU
+    # or sandbox. The runtime itself has to be installed into the prefix:
+    # nx-studio MicrosoftEdgeWebView2RuntimeInstallerX64.exe /silent /install
+    export WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS="--no-sandbox --disable-gpu --disable-gpu-compositing --in-process-gpu"
     # The installer refuses to run on anything older than Windows 11.
     if [ ! -d "$WINEPREFIX" ]; then
       winecfg -v win11
