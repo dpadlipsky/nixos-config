@@ -30,6 +30,10 @@ let
   nxStudio = pkgs.writeShellScriptBin "nx-studio" ''
     export WINEPREFIX="''${XDG_DATA_HOME:-$HOME/.local/share}/wine-nxstudio"
     export PATH=${wine}/bin:$PATH
+    # The installer refuses to run on anything older than Windows 11.
+    if [ ! -d "$WINEPREFIX" ]; then
+      winecfg -v win11
+    fi
     if [ $# -gt 0 ]; then
       exec wine "$@"
     fi
