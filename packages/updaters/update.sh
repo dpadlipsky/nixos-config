@@ -4,12 +4,15 @@
 repo=${NIXOS_CONFIG:-$HOME/nixos-config}
 base=$(git -C "$repo" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo origin/mainline)
 base=${base#origin/}
-# nix-rebuild builds whatever $repo has checked out, so it must track $base.
-if [ "$(git -C "$repo" branch --show-current)" != "$base" ]; then
-  echo "update: $repo must be on $base to rebuild from it" >&2
-  exit 1
-fi
+# nix-rebuild builds whatever $repo has checked out, so switch it to $base.
 cd "$repo"
+if [ "$(git branch --show-current)" != "$base" ]; then
+  echo "==> Switching $repo to $base"
+  git switch --quiet "$base"
+fi
+# Fail before any PRs are merged if $base can't fast-forward.
+echo "==> Pulling $base"
+git pull --ff-only --quiet origin "$base"
 
 failed=()
 for updater in "${updaters[@]}"; do
