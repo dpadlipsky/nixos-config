@@ -29,6 +29,7 @@ in
       # (agent-config's hyprland-desktop skill).
       pkgs.grim
       pkgs.slurp
+      pkgs.wl-clipboard
       pkgs.wtype
       pkgs.wlrctl
       pkgs.jq
@@ -232,9 +233,9 @@ in
         "$mainMod SHIFT, 9, movetoworkspace, 9"
         "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-        # Example special workspace (scratchpad)
-        "$mainMod, S, togglespecialworkspace, magic"
-        "$mainMod SHIFT, S, movetoworkspace, special:magic"
+        # Screenshots to the clipboard: full screen, or a selected region
+        "$mainMod, S, exec, grim - | wl-copy"
+        "$mainMod SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy"
 
         # Scroll through existing workspaces with mainMod + scroll
         "$mainMod, mouse_down, workspace, e+1"
