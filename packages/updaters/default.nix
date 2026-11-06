@@ -13,11 +13,11 @@ let
 
   updaters = map mkUpdater (builtins.attrNames scripts);
 
-  # `update` runs them all, merges their PRs, and runs nix-rebuild (which
-  # comes from the home-manager utils module, so it's taken from PATH).
+  # `update` runs them all, merges the bumps as one PR, and runs nix-rebuild
+  # (which comes from the home-manager utils module, so it's taken from PATH).
   update = writeShellApplication {
     name = "update";
-    runtimeInputs = [ git ] ++ updaters;
+    runtimeInputs = [ git gh ] ++ updaters;
     text = ''
       updaters=(${lib.escapeShellArgs (map (u: u.name) updaters)})
     '' + builtins.readFile ./update.sh;
