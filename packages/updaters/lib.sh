@@ -15,7 +15,8 @@
 # branch, gets build-checked, committed, pushed, and opened as a PR, leaving
 # the main checkout alone. With --merge the PR is merged straight away (an
 # already-open PR for the same version is merged too). With --local it only
-# rewrites the pin in place.
+# rewrites the pin in place. With --commit it also build-checks and commits
+# the bump there, for `update` to land several bumps as one PR.
 
 set -o errtrace
 
@@ -46,16 +47,17 @@ write_pinned_sources() {
 }
 
 updater_usage() {
-  echo "usage: $(basename "$0") [--local | --merge] [VERSION]" >&2
+  echo "usage: $(basename "$0") [--local | --commit | --merge] [VERSION]" >&2
   exit 1
 }
 
 updater_main() {
-  local local_only='' merge='' version='' arg repo base branch work current body pr
+  local local_only='' commit='' merge='' version='' arg repo base branch work current body pr
 
   for arg in "$@"; do
     case "$arg" in
       --local) local_only=1 ;;
+      --commit) local_only=1 commit=1 ;;
       --merge) merge=1 ;;
       -h | --help | -*) updater_usage ;;
       *) [ -z "$version" ] || updater_usage; version=${arg#v} ;;
@@ -109,7 +111,7 @@ updater_main() {
   write_sources "$version" "$work/$sources"
   echo "Updated $name: $current -> $version"
 
-  if [ -n "$local_only" ]; then
+  if [ -n "$local_only" ] && [ -z "$commit" ]; then
     git -C "$work" --no-pager diff -- "$sources"
     echo "Run nix-rebuild to install it."
     exit 0
@@ -122,7 +124,14 @@ updater_main() {
   if declare -F release_url >/dev/null; then
     body+=" ([release]($(release_url "$version")))"
   fi
-  body+=". Verified \`nixosConfigurations.framework\` builds."
+  body+="."
+
+  if [ -n "$commit" ]; then
+    git -C "$work" commit --quiet -am "Update $name to $version" -m "$body"
+    exit 0
+  fi
+
+  body+=" Verified \`nixosConfigurations.framework\` builds."
 
   git -C "$work" commit --quiet -am "Update $name to $version"
   git -C "$work" push --quiet -u origin "$branch"
