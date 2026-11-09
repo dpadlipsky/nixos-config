@@ -174,6 +174,8 @@ in
 
     hostLabel = "framework";
 
+    voxtype.enable = true;
+
     hyprland = {
       enable = true;
       sensitivity = 0;
