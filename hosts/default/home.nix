@@ -64,8 +64,10 @@ in
       (pkgs.callPackage ../../pkgs/claude-code.nix {
       inherit (unstable) claude-code;
     })
-    unstable.code-cursor
     (pkgs.callPackage ../../pkgs/antigravity-cli.nix { })
+    (pkgs.callPackage ../../pkgs/antigravity.nix {
+      inherit (unstable) antigravity-hub;
+    })
     (pkgs.callPackage ../../pkgs/t3-code.nix {
       inherit (unstable) appimageTools;
       codex = codexLatest;
