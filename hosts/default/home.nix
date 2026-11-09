@@ -65,6 +65,9 @@ in
       inherit (unstable) claude-code;
     })
     (pkgs.callPackage ../../pkgs/antigravity-cli.nix { })
+    (pkgs.callPackage ../../pkgs/antigravity-ide.nix {
+      inherit (unstable) antigravity-ide buildVscode;
+    })
     (pkgs.callPackage ../../pkgs/t3-code.nix {
       inherit (unstable) appimageTools;
       codex = codexLatest;
