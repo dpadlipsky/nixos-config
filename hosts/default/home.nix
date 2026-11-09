@@ -93,6 +93,11 @@ in
 
     hostLabel = "default";
 
+    voxtype = {
+      enable = true;
+      model = "large-v3-turbo";
+    };
+
     hyprland = {
       enable = true;
       sensitivity = -0.5;
