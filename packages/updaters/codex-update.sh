@@ -11,8 +11,7 @@ latest_version() {
 write_sources() {
   local base="https://github.com/openai/codex/releases/download/rust-v$1"
   write_pinned_sources "$2" "$1" \
-    cli "$base/codex-x86_64-unknown-linux-musl.tar.gz" \
-    host "$base/codex-code-mode-host-x86_64-unknown-linux-musl.zst"
+    package "$base/codex-package-x86_64-unknown-linux-musl.tar.zst"
 }
 
 release_url() {

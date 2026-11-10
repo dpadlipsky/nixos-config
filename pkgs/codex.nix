@@ -8,18 +8,18 @@ stdenvNoCC.mkDerivation {
   pname = "codex";
   inherit (pin) version;
 
-  src = fetchurl pin.sources.cli;
-  hostArchive = fetchurl pin.sources.host;
+  src = fetchurl pin.sources.package;
 
   nativeBuildInputs = [ zstd ];
-  sourceRoot = ".";
+  dontUnpack = true;
+  dontFixup = true;
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 codex-x86_64-unknown-linux-musl $out/bin/codex
-    zstd -dc "$hostArchive" > "$out/bin/codex-code-mode-host"
-    chmod 755 "$out/bin/codex-code-mode-host"
+    mkdir -p "$out/bin" "$out/libexec/codex"
+    tar -xf "$src" -C "$out/libexec/codex"
+    ln -s "$out/libexec/codex/bin/"* "$out/bin/"
 
     runHook postInstall
   '';
