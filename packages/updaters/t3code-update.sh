@@ -9,8 +9,13 @@ latest_version() {
 }
 
 write_sources() {
-  write_pinned_sources "$2" "$1" \
-    appimage "https://github.com/pingdotgg/t3code/releases/download/v$1/T3-Code-$1-x86_64.AppImage"
+  # The AppImage's name changes between releases (T3-Code-<version>-x86_64,
+  # T3-Code-Nightly-x86_64), so take it from the release's assets.
+  local url
+  url=$(curl -fsSL "https://api.github.com/repos/pingdotgg/t3code/releases/tags/v$1" |
+    jq -r '[.assets[].browser_download_url | select(endswith("x86_64.AppImage"))][0] // empty')
+  [ -n "$url" ] || { echo "$name: no x86_64 AppImage in release v$1" >&2; exit 1; }
+  write_pinned_sources "$2" "$1" appimage "$url"
 }
 
 release_url() {
