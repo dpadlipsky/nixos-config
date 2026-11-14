@@ -15,8 +15,9 @@
 # branch, gets build-checked, committed, pushed, and opened as a PR, leaving
 # the main checkout alone. With --merge the PR is merged straight away (an
 # already-open PR for the same version is merged too). With --local it only
-# rewrites the pin in place. With --commit it also build-checks and commits
-# the bump there, for `update` to land several bumps as one PR.
+# rewrites the pin in place. With --commit it updates the pin and commits in
+# place without building, for `update` to build and land several bumps as one
+# PR.
 
 set -o errtrace
 
@@ -117,9 +118,6 @@ updater_main() {
     exit 0
   fi
 
-  echo "Building nixosConfigurations.framework"
-  nix build --no-link "$work#nixosConfigurations.framework.config.system.build.toplevel"
-
   body="Bumps $name from $current to $version"
   if declare -F release_url >/dev/null; then
     body+=" ([release]($(release_url "$version")))"
@@ -130,6 +128,9 @@ updater_main() {
     git -C "$work" commit --quiet -am "Update $name to $version" -m "$body"
     exit 0
   fi
+
+  echo "Building nixosConfigurations.framework"
+  nix build --no-link "$work#nixosConfigurations.framework.config.system.build.toplevel"
 
   body+=" Verified \`nixosConfigurations.framework\` builds."
 
