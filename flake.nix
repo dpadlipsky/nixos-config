@@ -25,6 +25,11 @@
       url = "git+ssh://git@github.com/dpadlipsky/photo-uploader.git?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    drive-storage = {
+      url = "git+ssh://git@github.com/dpadlipsky/drive-storage.git?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
