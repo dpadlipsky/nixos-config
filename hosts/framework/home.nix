@@ -144,6 +144,7 @@ in
     (pkgs.callPackage ../../packages/updaters { })
     inputs.bambu-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.photo-uploader.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.drive-storage.packages.${pkgs.stdenv.hostPlatform.system}.default
     codexLatest
     opencode
   ];

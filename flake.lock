@@ -21,6 +21,27 @@
         "url": "ssh://git@github.com/dpadlipsky/bambu-desktop.git"
       }
     },
+    "drive-storage": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794796443,
+        "narHash": "sha256-zRgYqS0rQxUTGnS39SrKoLt1nwcKffmnuQpr/foms0M=",
+        "ref": "main",
+        "rev": "6c1a57a7e002c31949291bfc915171d7b11aadff",
+        "revCount": 29,
+        "type": "git",
+        "url": "ssh://git@github.com/dpadlipsky/drive-storage.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/dpadlipsky/drive-storage.git"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -147,6 +168,7 @@
     "root": {
       "inputs": {
         "bambu-desktop": "bambu-desktop",
+        "drive-storage": "drive-storage",
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
