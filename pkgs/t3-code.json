@@ -1,9 +1,9 @@
 {
-  "version": "0.1.12-nightly.20261120.5009",
+  "version": "0.1.12-nightly.20261121.5064",
   "sources": {
     "appimage": {
-      "url": "https://github.com/pingdotgg/t3code/releases/download/v0.1.12-nightly.20261120.5009/T3-Code-Nightly-x86_64.AppImage",
-      "hash": "sha256-4kOtxqzT8t1If28xRObREQrgyjzWp4zTonsbvradfjo="
+      "url": "https://github.com/pingdotgg/t3code/releases/download/v0.1.12-nightly.20261121.5064/T3-Code-Nightly-x86_64.AppImage",
+      "hash": "sha256-AerWIECen+c2gPKLUB9cE0BnzfTQUt9vOHequHnOv6w="
     }
   }
 }
