@@ -151,11 +151,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795414979,
-        "narHash": "sha256-W2iCeQ3WilqXohcIoIOtQg//ad26MihteQTF5XMYe0w=",
+        "lastModified": 1795481151,
+        "narHash": "sha256-6fdmV5pIJsELkZLnLN8uti96gZU8yWNd0XCsVWi1WDg=",
         "ref": "main",
-        "rev": "19d65280be6350497c004fd05d9e88a4e3a12154",
-        "revCount": 42,
+        "rev": "bad27a1b08d9ec46595018dce10cab41d7969a85",
+        "revCount": 46,
         "type": "git",
         "url": "ssh://git@github.com/dpadlipsky/photo-uploader.git"
       },
